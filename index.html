@@ -4,6 +4,28 @@
         <title>Mr. or Ms.?</title>
     </head>
     <body>
-        <p>Hello World!</p>
+        <div class='main-container'>
+            <div class="container-1">
+                <h1>Mr. or Ms.?</h1>
+                <form action="https://httpbin.org/get" method="get">
+                    Name:
+                    <input type="text" name="name" maxlength="255"><br>
+                    <input type="radio" name="gender" value="male"> Male <br>
+                    <input type="radio" name="gender" value="female"> Female <br>
+                    <button>Submit</button>
+                    <button>Reset</button>
+                </form>
+            </div>
+            <div class="container-2">
+                <h1>Prediction</h1>
+                <p>Gender = Male</p>
+                <p>Probability = 0.97</p>
+            </div>
+            <div class="container-3">
+                <h1>Saved Answer</h1>
+                <p>There isn't any saved answer</p>
+                <button>Clear</button>
+            </div>
+        </div>
     </body>
 </html>
