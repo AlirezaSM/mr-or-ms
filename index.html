@@ -3,19 +3,20 @@
     <head>
         <title>Mr. or Ms.?</title>
         <link rel="stylesheet" href="style.css" type="text/css">
-        <script src="script.js"></script>
+        <script src="script.js" defer></script>
     </head>
     <body>
         <div class='main-container'>
             <div class="container-1">
                 <h1>Mr. or Ms.?</h1>
-                <form action="https://httpbin.org/get" method="get">
+                <form action="https://httpbin.org/get" method="get" id="nameForm">
                     Name:
                     <input type="text" name="name" id="nameText"><br>
+                    <p id='genderRadioLabel'>Gender:</p>
                     <input type="radio" name="gender" value="male"> Male <br>
                     <input type="radio" name="gender" value="female"> Female <br>
-                    <button id="submitBtn">Submit</button>
-                    <button id="saveBtn">Save</button>
+                    <button type="submit" id="submitBtn">Submit</button>
+                    <button type="button" id="saveBtn">Save</button>
                 </form>
             </div>
             <div class="container-2">
