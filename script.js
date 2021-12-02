@@ -1,5 +1,5 @@
-// handle submit button click event
-document.getElementById('submitBtn').addEventListener("click", function checkForm(event) {
+// handle click event of submit button
+document.getElementById('submitBtn').addEventListener("click", function submitHandler(event) {
     
     let nameString = document.getElementById("nameText").value
     let valid = true
@@ -39,6 +39,16 @@ document.getElementById('submitBtn').addEventListener("click", function checkFor
     
     // If form is valid then send request to https://api.genderize.io/ and show results
     if (valid) {
+        // If we saved the name before then display the gender in saved answer section
+        if (localStorage.getItem(nameString.toLowerCase())) {
+            let gender = localStorage.getItem(nameString.toLowerCase())
+            let savedAns = nameString + ", " + gender
+            document.getElementById("savedAnswerText").innerHTML = savedAns
+        } else {
+            // If didn't save the name before then clear the previous result
+            document.getElementById("savedAnswerText").innerHTML = "--"
+        }
+
         fetch("https://api.genderize.io/?name=" + nameString)
         .then(response => response.json())
         .then(function handleResponse(obj) {
@@ -50,10 +60,27 @@ document.getElementById('submitBtn').addEventListener("click", function checkFor
         })
         .catch(error => {
             console.log("There has been a problem with your fetch operation")
+            // If we don't get any result then clear the previous result
+            document.getElementById("genderResult").innerHTML = "--"
+            document.getElementById("probabilityResult").innerHTML = "--"
         })
     }
     event.preventDefault()
     
+})
+
+document.getElementById("saveBtn").addEventListener("click", function saveHandler() {
+    let name = document.getElementById("nameText").value
+    let gender = document.querySelector('input[name="gender"]:checked').value
+    localStorage.setItem(name.toLowerCase(), gender.toLowerCase())
+})
+
+document.getElementById("clearBtn").addEventListener("click", function clearHandler() {
+    if (document.getElementById("savedAnswerText").innerHTML != '--') {
+        key = document.getElementById("savedAnswerText").innerHTML.split(", ")[0]
+        localStorage.removeItem(key)
+        document.getElementById("savedAnswerText").innerHTML = "--"
+    }
 })
 
 
