@@ -5,7 +5,7 @@ document.getElementById('submitBtn').addEventListener("click", function checkFor
     let valid = true
     
     // [Form Validation] name must be less than 255 characters
-    if (nameString.length > 10) {
+    if (nameString.length > 255) {
         if (!document.getElementById("nameError")){
             let error = document.createElement("p")
             error.innerHTML = "Name must be less than 255 characters"
