@@ -52,6 +52,9 @@ document.getElementById('submitBtn').addEventListener("click", function submitHa
         fetch("https://api.genderize.io/?name=" + nameString)
         .then(response => response.json())
         .then(function handleResponse(obj) {
+            if (document.getElementById("responseError")) {
+                document.getElementById("responseError").remove()
+            }
             // Update prediction of gender based on response + Make first letter uppercase :)
             document.getElementById("genderResult").innerHTML = obj.gender.charAt(0).toUpperCase() + obj.gender.slice(1)
             // Update prediction of gender based on response
@@ -59,10 +62,15 @@ document.getElementById('submitBtn').addEventListener("click", function submitHa
 
         })
         .catch(error => {
-            console.log("There has been a problem with your fetch operation")
             // If we don't get any result then clear the previous result
             document.getElementById("genderResult").innerHTML = "--"
             document.getElementById("probabilityResult").innerHTML = "--"
+            
+            let errorMsg = document.createElement("p")
+            errorMsg.innerHTML = "No response was received for the entered name"
+            errorMsg.id = "responseError"
+            errorMsg.style = "color: red; font-style: italic; font-size: 12px"
+            document.getElementById("predictionContainer").insertBefore(errorMsg, document.getElementById("predictionDL"))
         })
     }
     event.preventDefault()
@@ -70,9 +78,22 @@ document.getElementById('submitBtn').addEventListener("click", function submitHa
 })
 
 document.getElementById("saveBtn").addEventListener("click", function saveHandler() {
-    let name = document.getElementById("nameText").value
-    let gender = document.querySelector('input[name="gender"]:checked').value
-    localStorage.setItem(name.toLowerCase(), gender.toLowerCase())
+    if (document.querySelector('input[name="gender"]:checked') != null) {
+        if (document.getElementById("saveError")) {
+            document.getElementById("saveError").remove()
+        }
+        
+        let name = document.getElementById("nameText").value
+        let gender = document.querySelector('input[name="gender"]:checked').value
+        localStorage.setItem(name.toLowerCase(), gender.toLowerCase())
+    } else {
+        let error = document.createElement("p")
+        error.innerHTML = "Choose one of the genders"
+        error.id = "saveError"
+        error.style = "color: red; font-style: italic; font-size: 12px"
+        document.getElementById("nameForm").insertBefore(error, document.getElementById("submitBtn"))
+    }
+    
 })
 
 document.getElementById("clearBtn").addEventListener("click", function clearHandler() {
