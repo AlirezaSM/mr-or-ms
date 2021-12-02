@@ -1,9 +1,13 @@
+/* css of body tag */
 body {
+    /* display it as flexbox */
     display: flex;
+    /* show given background image in no-repeat mode at the center of the screen and cover all of the screen */
     background-image: url("background.png");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+    /* settings for show content of body tag at the center of the screen */
     height: 98vh;
     justify-content: center;
     align-items: center;
@@ -11,21 +15,29 @@ body {
     
 }
 
+/* css of every tag with main-container class (just one div affected) */
 .main-container {
+    /* display it as flexbox */
     display: flex;
+    /* set border width and color and style */
     border: 1px rgb(87, 87, 87) solid;
-    border-width: 1px;
+    /* set border radius for nice and beautiful edges :) */
     border-radius: 25px;
+    /* set size of the element to conver its content */
     width: fit-content;
     height: fit-content;
+    /* set padding: top right bottom left */
     padding: 0px 25px 25px 25px;
+    /* set beautiful transparent background color */
     background-color: rgba(187, 187, 187, 0.85);
 }
 
+/* css of every tag with container-1 class (just Mr. or Ms.? section affected) */
 .container-1{
     margin-right: 25px;
 }
 
+/* css of dt tag */
 dt {
     margin-top: 10px;
 }
