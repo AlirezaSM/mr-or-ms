@@ -5,15 +5,14 @@ document.getElementById('submitBtn').addEventListener("click", function checkFor
     let valid = true
     
     // [Form Validation] name must be less than 255 characters
-    if (nameString.length > 255) {
+    if (nameString.length > 255 || nameString.length < 1) {
         if (!document.getElementById("nameError")){
             let error = document.createElement("p")
-            error.innerHTML = "Name must be less than 255 characters"
+            error.innerHTML = "Name must be more than one and less than 255 characters"
             error.id = "nameError"
             error.style = "color: red; font-style: italic; font-size: 12px"
             document.getElementById("nameForm").insertBefore(error, document.getElementById("genderRadioLabel"))
         }
-        event.preventDefault()
         valid = false
     } else {
         if (document.getElementById("nameError")){
@@ -31,13 +30,29 @@ document.getElementById('submitBtn').addEventListener("click", function checkFor
             error.style = "color: red; font-style: italic; font-size: 12px"
             document.getElementById("nameForm").insertBefore(error, document.getElementById("genderRadioLabel"))
         }
-        event.preventDefault()
         valid = false
     } else {
         if (document.getElementById("regexError")){
             document.getElementById("regexError").remove()
         }
-    }    
+    }
+    
+    // If form is valid then send request to https://api.genderize.io/ and show results
+    if (valid) {
+        fetch("https://api.genderize.io/?name=" + nameString)
+        .then(response => response.json())
+        .then(function handleResponse(obj) {
+            // Update prediction of gender based on response + Make first letter uppercase :)
+            document.getElementById("genderResult").innerHTML = obj.gender.charAt(0).toUpperCase() + obj.gender.slice(1)
+            // Update prediction of gender based on response
+            document.getElementById("probabilityResult").innerHTML = obj.probability
+
+        })
+        .catch(error => {
+            console.log("There has been a problem with your fetch operation")
+        })
+    }
+    event.preventDefault()
     
 })
 

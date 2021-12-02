@@ -9,7 +9,7 @@
         <div class='main-container'>
             <div class="container-1">
                 <h1>Mr. or Ms.?</h1>
-                <form action="https://httpbin.org/get" method="get" id="nameForm">
+                <form id="nameForm">
                     Name:
                     <input type="text" name="name" id="nameText"><br>
                     <p id='genderRadioLabel'>Gender:</p>
@@ -24,9 +24,9 @@
                     <h1>Prediction</h1>
                     <dl>
                         <dt>Gender:</dt>
-                            <dd>Male</dd>
+                            <dd id="genderResult">--</dd>
                         <dt>Probability</dt>
-                            <dd>0.97</dd>
+                            <dd id="probabilityResult">--</dd>
                     </dl>
                 </div>
                 <div>
